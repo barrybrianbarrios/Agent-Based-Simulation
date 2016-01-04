@@ -8,6 +8,7 @@ import repast.simphony.context.space.grid.GridFactoryFinder;
 import repast.simphony.dataLoader.ContextBuilder;
 import repast.simphony.random.RandomHelper;
 import repast.simphony.space.continuous.ContinuousSpace;
+import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.continuous.RandomCartesianAdder;
 import repast.simphony.space.grid.Grid;
 import repast.simphony.space.grid.WrapAroundBorders;
@@ -43,6 +44,11 @@ public class JZombiesBuilder implements ContextBuilder<Object> {
 	for (int i = 0; i < humanCount; i++){
 		int energy = RandomHelper.nextIntFromTo(4, 10);
 		context.add(new Human(space, grid, energy));
+	}
+	
+	for (Object obj : context) {
+		NdPoint pt = space.getLocation(obj);
+		grid.moveTo(obj, (int)pt.getX(), (int) pt.getY());
 	}
 	return context;
 	
